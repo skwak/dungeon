@@ -39,7 +39,7 @@ class Dungeon
       puts "Your CAFFEINATED CODING STRENGTH is at LEVEL #{power}."
       puts "You are the best coder of all of humankind! (or at least best
       would be coder of all humankind). YOU WIN."
-      abort ("*American Online Voice* Goodbye!")
+      abort ("*America Online Voice* Goodbye!")
     end
   end
 
@@ -60,7 +60,7 @@ class Dungeon
         if almost_over == "start"
             start(:ada)
         elsif almost_over == "exit"
-            abort("*American Online Voice* Goodbye!")
+            abort("*America Online Voice* Goodbye!")
         else
             "Hm, sorry, I didn't understand. I am still learning to code."
         end
@@ -226,7 +226,7 @@ while true
   elsif move =="start"
     my_dungeon.start(:ada)
   elsif move =="exit"
-    abort("*American Online Voice* Goodbye!")
+    abort("*America Online Voice* Goodbye!")
   end
 
 
