@@ -43,6 +43,7 @@ class Dungeon
     end
   end
 
+
   def go(direction)
     puts "You go " + direction.to_s
     @player.location = find_room_in_direction(direction)
@@ -65,7 +66,29 @@ class Dungeon
             "Hm, sorry, I didn't understand. I am still learning to code."
         end
     elsif @player.location == :apt
-      add_drinks(5)
+      puts "You see a little dragon sitting in the corner of the room, crying and shivering, looking all alone."
+      puts "He is wearing a name tag. The little dragon's name is Slime!...(press enter to continue)"
+      my_dragon = Dragon.new("Slime")
+      puts "He looks at you shyly."
+      puts "Do you want to...
+            1. Feed dragon (press '1')
+            2. Toss dragon (press '2')
+            3. Walk dragon (press '3')
+            4. Rock dragon (press '4')
+            5. Put dragon to bed? (press '5')
+            ?????????????????????????????????"
+      what_to_do = gets.chomp
+      if what_to_do == "1"
+        my_dragon.feed
+      elsif what_to_do == "2"
+        my_dragon.toss
+      elsif what_to_do == "3"
+        my_dragon.walk
+      elsif what_to_do == "4"
+        my_dragon.rock
+      elsif what_to_do == "5"
+        my_dragon.put_to_bed
+      end
     elsif @player.location == :cafe
       add_drinks(4)
     elsif @player.location == :club
@@ -81,8 +104,6 @@ class Dungeon
     def initialize(name)
       @name = name
     end
-
-
   end
 
   class Room
@@ -98,10 +119,7 @@ class Dungeon
     def full_description
       @name + "\n\nYou are in " + @description
     end
-
   end
-
-
 
   class Caffeine
     attr_accessor :player, :name, :location
@@ -111,11 +129,107 @@ class Dungeon
     end
   end
 
+  class Dragon
 
+    def initialize(name)
+      @name = name
+      @asleep = false
+      @stuff_in_belly = 10
+      @stuff_in_intestine = 0
+      @name = gets.chomp
+    end
 
-end
+    def feed
+      puts "You feed Slime."
+      @stuff_in_belly = 10
+      passage_of_time
+    end
 
+    def walk
+      puts "You walk Slime."
+      @stuff_in_intestine = 0
+      passage_of_time
+    end
 
+    def put_to_bed
+      puts "You put Slime to bed."
+      @asleep = true
+      3.times do
+        if @asleep
+          passage_of_time
+        end
+        if @asleep
+          puts "Slime snores, filling the room with smoke."
+        end
+      end
+      if @asleep
+        @asleep = false
+        puts "Slime wakes up slowly."
+      end
+    end
+
+    def toss
+      puts "You toss Slime up into the air."
+      puts "He giggles, which singes your eyebrows."
+      passage_of_time
+    end
+
+    def rock
+      puts "You rock Slime gently."
+      @asleep = true
+      puts "He briefly dozes off..."
+      passage_of_time
+      if @asleep
+        @asleep = false
+        puts "...but wakes when you stop."
+      end
+    end
+
+  private
+
+    def hungry?
+      @stuff_in_belly <=2
+    end
+
+    def poopy?
+      @stuff_in_intestine >=8
+    end
+
+    def passage_of_time
+      if @stuff_in_belly >0
+        @stuff_in_belly = @stuff_in_belly - 1
+        @stuff_in_intestine = @stuff_in_intestine + 1
+      else
+        if @asleep
+          @asleep = false
+          puts "He wakes up suddenly!"
+        end
+        puts "Slime is starving! In desperation, he ate YOU!"
+        exit
+      end
+      if @stuff_in_intestine >= 10
+        @stuff_in_intestine = 0
+        puts "Whoops! Slime} has an accident..."
+      end
+
+      if hungry?
+        if @asleep
+          @asleep = false
+          puts "He wakes up suddenly!"
+        end
+        puts "Slime's stomach grumbles..."
+      end
+
+      if poopy?
+        if @asleep
+          @asleep = false
+          puts "He wakes up suddenly!"
+        end
+        puts "Slime does the potty dance..."
+      end
+    end
+
+  end
 
 # Create the main dungeon object
 my_dungeon = Dungeon.new("Ada Code Dungeon")
@@ -167,7 +281,6 @@ like rain upon your hunched shoulders. I have no idea. It's like The Matrix. Ful
 of plotholes (oh, snap).", {:south => :food, :east => :food, :east => :smallcave,
 :east => :club, :south => :hammock, :south => :beer, :west => :beer, :west =>
 :largecave, :west => :cafe,  :north => :cafe, :north => :apt, :north => :club })
-
 
 
 
@@ -228,7 +341,7 @@ while true
   elsif move =="exit"
     abort("*America Online Voice* Goodbye!")
   end
-
+end
 
 
 end
