@@ -43,7 +43,6 @@ class Dungeon
     end
   end
 
-
   def go(direction)
     puts "You go " + direction.to_s
     @player.location = find_room_in_direction(direction)
@@ -128,6 +127,9 @@ class Dungeon
       @power = power
     end
   end
+
+#copied and pasted this from Peter Cooper's "Baby Dragon" exercise. may tweak
+#this to fit the game's theme in the future...
 
   class Dragon
 
@@ -282,8 +284,6 @@ of plotholes (oh, snap).", {:south => :food, :east => :food, :east => :smallcave
 :east => :club, :south => :hammock, :south => :beer, :west => :beer, :west =>
 :largecave, :west => :cafe,  :north => :cafe, :north => :apt, :north => :club })
 
-
-
 #Start the dungeon
 
 puts "Welcome to the ADA CODE DUNGEON.\n
@@ -316,7 +316,6 @@ actually work). \n
 
 You start off at:"
 
-
 my_dungeon.start(:ada)
 while true
   puts "Where do you want to go?
@@ -342,6 +341,5 @@ while true
     abort("*America Online Voice* Goodbye!")
   end
 end
-
 
 end
